@@ -1,0 +1,58 @@
+import empleado.*
+import categoria.*
+import resultado.*
+import presentismo.*
+
+describe "Sueldo de Pepe" {
+
+	test "si es cadete, con bono presentismo nada y bono resultado nada" {
+		assert.equals(1500, pepe.sueldo())
+	}
+	
+	test "si es cadete, con bono presentismo nada y bono resultado fijo" {
+		pepe.bonoResultado(bonoResultadoFijo)
+		assert.equals(1580, pepe.sueldo())
+	}
+	
+	test "si es cadete, con bono presentismo nada y bono resultado porcentual" {
+		pepe.bonoResultado(bonoResultadoPorcentual)
+		assert.equals(1650, pepe.sueldo())
+	}
+
+	test "si es cadete, con bono presentismo por cero faltas y bono resultado nada" {
+		pepe.bonoPresentismo(bonoPresentismoPorFaltas)
+		assert.equals(1600, pepe.sueldo())
+	}
+	
+	test "si es cadete, con bono presentismo por cero faltas y bono resultado fijo" {
+		pepe.bonoPresentismo(bonoPresentismoPorFaltas)
+		pepe.bonoResultado(bonoResultadoFijo)
+		assert.that(pepe.sueldo() == 1680)
+	}
+	
+	test "si es cadete, con bono presentismo por cero faltas y bono resultado porcentual" {
+		pepe.bonoPresentismo(bonoPresentismoPorFaltas)
+		pepe.bonoResultado(bonoResultadoPorcentual)
+		assert.that(pepe.sueldo() == 1750)
+	}
+
+	test "si es cadete, con bono presentismo por una falta y bono resultado nada" {
+		pepe.faltas(1)
+		pepe.bonoPresentismo(bonoPresentismoPorFaltas)
+		assert.that(pepe.sueldo() == 1550)
+	}
+	
+	test "si es cadete, con bono presentismo por una falta y bono resultado fijo" {
+		pepe.faltas(1)
+		pepe.bonoPresentismo(bonoPresentismoPorFaltas)
+		pepe.bonoResultado(bonoResultadoFijo)
+		assert.that(pepe.sueldo() == 1630)
+	}
+	
+	test "si es cadete, con bono presentismo por una falta y bono resultado porcentual" {
+		pepe.faltas(1)
+		pepe.bonoPresentismo(bonoPresentismoPorFaltas)
+		pepe.bonoResultado(bonoResultadoPorcentual)
+		assert.that(pepe.sueldo() == 1700)
+	}
+}
