@@ -1,0 +1,34 @@
+import Persona.*
+import Enfermedad.*
+
+// 1. ¿De quién es la responsabilidad de ...?
+// 2. ¿Quién tiene la información mínima e indispensable para ...?
+
+describe "Dr Casa" {
+
+	const frank = new Persona(temperatura = 36, cantidadCelulas = 3500000)
+	const logan = new Persona(temperatura = 36, cantidadCelulas = 3000000)
+	
+	const malaria500 = new EnfermedadInfecciosa(cantidadCelulasAmenazantes = 500)
+	const malaria800 = new EnfermedadInfecciosa(cantidadCelulasAmenazantes = 800)
+	const otitis100  = new EnfermedadInfecciosa(cantidadCelulasAmenazantes = 100)
+	const lupus      = new EnfermedadAutoinmune(cantidadCelulasAmenazantes = 10000)
+
+	test "Frank contrae una malaria de 800 celulas amenazadas" {
+		frank.contraerEnfermedad(malaria800)
+		assert.that(frank.tieneEnfermedad(malaria800))
+	}
+	
+	test "La malaria de 500 celulas amenazadas se reproduce" {
+		malaria500.reproducirse()
+		assert.equals(1000, malaria500.cantidadCelulasAmenazantes())
+	}
+	
+	test "Logan vive un día" {
+		logan.contraerEnfermedad(malaria500)
+		logan.contraerEnfermedad(otitis100)
+		logan.contraerEnfermedad(lupus)
+		// COMPLETAR EL TEST Y TERMINAR TODO EL ENUNCIADO
+	}
+
+}
