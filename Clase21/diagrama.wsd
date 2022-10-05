@@ -1,0 +1,51 @@
+@startuml
+class Persona {
+  enfermedades
+  temperatura
+  cantidadCelulas
+
+  contraerEnfermedad(unaEnfermedad)
+  tieneEnfermedad(unaEnfermedad)
+  vivirUnDia()
+  subirTemperatura(unosGrados)
+  bajarCantidadCelulas(unaCantidadDeCelulas)
+  cantidadDeCelulasAmenazadasPorEnfermedadesAgresivas()
+  enfermedadesAgresivas()
+  enfermedadMasPeligrosa()
+  estaEnComa()
+}
+
+class Medico extends Persona {
+  dosis
+
+  contraerEnfermedad(unaEnfermedad)
+  atenderA(unaPersona)
+}
+
+class EnfermedadInfecciosa {
+  cantidadCelulasAmenazantes
+
+  reproducirse()
+  afectarA(unaPersona)
+  esAgresivaPara(unaPersona)
+}
+
+class EnfermedadAutoinmune extends Enfermedad {
+  cantidadDeVecesQueSeReprodujo
+
+  afectarA(unaPersona)
+  esAgresivaPara(unaPersona)
+}
+
+abstract class Enfermedad {
+  cantidadCelulasAmenazantes
+
+  {abstract} afectarA(unaPersona)
+  {abstract} esAgresivaPara(unaPersona)
+  atenuar(unaCantidad)
+  estaCurada()
+}
+
+Enfermedad "*" <-l- Persona : conoce/tiene
+Enfermedad <|-- EnfermedadInfecciosa : hereda de
+@enduml

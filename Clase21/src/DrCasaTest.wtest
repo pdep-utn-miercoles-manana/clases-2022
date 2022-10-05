@@ -1,0 +1,64 @@
+import Persona.*
+import Enfermedad.*
+
+// 1. ¿De quién es la responsabilidad de ...?
+// 2. ¿Quién tiene la información mínima e indispensable para ...?
+
+describe "Dr Casa" {
+
+	const frank = new Persona(temperatura = 36, cantidadCelulas = 3500000)
+	const logan = new Persona(temperatura = 36, cantidadCelulas = 3000000)
+
+  const cameron = new Medico(temperatura = 36, cantidadCelulas = 3500000, dosis = 10)
+	
+	const malaria500 = new EnfermedadInfecciosa(cantidadCelulasAmenazantes = 500)
+	const malaria800 = new EnfermedadInfecciosa(cantidadCelulasAmenazantes = 800)
+	const otitis100  = new EnfermedadInfecciosa(cantidadCelulasAmenazantes = 100)
+	const lupus      = new EnfermedadAutoinmune(cantidadCelulasAmenazantes = 10000)
+
+  // TDD: Test Driven Development
+  
+  method initialize() {
+    logan.contraerEnfermedad(malaria500)
+    logan.contraerEnfermedad(otitis100)
+    logan.contraerEnfermedad(lupus)
+  }
+
+	test "Frank contrae una malaria de 800 celulas amenazadas" {
+		frank.contraerEnfermedad(malaria800)
+		assert.that(frank.tieneEnfermedad(malaria800))
+	}
+	
+	test "La malaria de 500 celulas amenazadas se reproduce" {
+		malaria500.reproducirse()
+		assert.equals(1000, malaria500.cantidadCelulasAmenazantes())
+	}
+	
+	test "Logan vive un día" {
+		
+		assert.equals(3, logan.cantidadDeEnfermedades())
+		// COMPLETAR EL TEST Y TERMINAR TODO EL ENUNCIADO
+	}
+	
+	test "La malaria se atenua en 100 celulas" {
+	  malaria500.atenuar(100)
+	  
+	  assert.equals(400, malaria500.cantidadCelulasAmenazantes())
+	}
+	
+	test "Cameron atiende a Logan" {
+	  cameron.atenderA(logan)
+	  
+	  assert.equals(350, malaria500.cantidadCelulasAmenazantes())
+	}
+	
+	test "Logan tiene una malaria de 500" {
+	  assert.that(logan.tieneEnfermedad(malaria500))
+	}
+	
+  test "Logan se cura de la malaria si toma 500g de medicamento" {
+    logan.tomarMedicamento(500)
+    assert.notThat(logan.tieneEnfermedad(malaria500))
+  }	
+
+}
