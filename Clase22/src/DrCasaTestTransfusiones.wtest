@@ -1,0 +1,14 @@
+import Persona.*
+import FactorSanguineo.*
+
+describe "Dr Casa Temporada 3" {
+	
+	test "Cameron intenta donarle a House 1100 células" {
+		const cameron = new Persona(factor = factorA, temperatura = 36, cantidadCelulas = 4000)
+		const house = new Persona(factor = factorO, temperatura = 36, cantidadCelulas = 4000)
+		assert.throwsExceptionWithMessage("No se pudo realizar la donación", { 
+			cameron.donarA(house, 1100)
+		})
+	}
+	
+}
